@@ -22,3 +22,6 @@ poetry.lock
 
 # Otros archivos innecesarios
 .python-version
+
+# Carpeta con los memes
+memes/
