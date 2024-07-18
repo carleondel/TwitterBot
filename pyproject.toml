@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "memes-bot"
+version = "0.1.0"
+description = ""
+authors = ["carleondel <carleondel@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tweepy = "^4.14.0"
+urllib3 = "1.26.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
