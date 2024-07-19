@@ -25,3 +25,6 @@ poetry.lock
 
 # Carpeta con los memes
 memes/
+
+# txt para scheduled_img.py
+src/last_published.txt
