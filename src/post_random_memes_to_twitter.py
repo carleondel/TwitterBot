@@ -1,3 +1,6 @@
+
+# RANDOM MEME TWITTER POSTING FROM MEMES FOLDER
+
 import tweepy
 import random
 import schedule

@@ -1,7 +1,13 @@
+
+# SIMPLE SCRIPT TO PRINT DETAILS FROM SUBREDDIT POSTS
+
+
 import praw
 import os
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timezone
+
+# We take the top posts all time from a subreddit
 
 # Cargar variables de entorno desde .env
 load_dotenv()
@@ -33,6 +39,6 @@ for submission in subreddit.top(limit=10):
     print('Score:', submission.score)
     print('Url:', submission.url)
     created_utc = submission.created_utc
-    created_date = datetime.utcfromtimestamp(created_utc).strftime('%Y-%m-%d %H:%M:%S')
+    created_date = datetime.fromtimestamp(created_utc, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     print('Date:', created_date)
     print()

@@ -23,8 +23,10 @@ poetry.lock
 # Otros archivos innecesarios
 .python-version
 
-# Carpeta con los memes
+# Carpetas con los memes
 memes/
+
+math_memes/
 
 # txt para scheduled_img.py
 src/last_published.txt
