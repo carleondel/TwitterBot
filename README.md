@@ -28,10 +28,11 @@ This project aims to develop a Twitter bot that automatically posts memes using 
 
 The project consists of several scripts:
 
-1. **`trials.py`**: Tweets a random number.
-2. **`images.py`**: Tweets a specific image from a local folder.
-3. **`scheduled_img.py`**: Automatically tweets an image from the folder at regular intervals.
-4. **`rmathmemes.py`**: Fetches the top Reddit meme posts and tweets them with their captions.
+1. **`random_number_tweet.py`**: Tweets a random number.
+2. **`scheduled_random_meme_tweet.py`**: Posts the memes randomly from the `memes` folder without tweeting the same meme consecutively.
+3. **`retrieve_daily_mathmemes.py`**: Retrieves the top daily memes from Reddit’s `mathmemes` subreddit, filtering for those with a score of at least 150, and saves them to the `math_memes` folder.
+4. **`post_mathmemes_to_twitter.py`**: Posts the saved memes from the previous day sequentially on Twitter, one per hour, using captions from `captions.txt`. During trials, it posts the memes instantly, followed by each subsequent meme every minute.
+ 
 
 ## Requirements
 
