@@ -80,7 +80,7 @@ def load_captions():
     return memes
 
 # Function to post memes sequentially from the saved list
-def post_sequential_meme():
+def post_sequential_meme(job=None):
     all_memes = load_captions()
 
     # Filter out the memes that have already been posted
@@ -93,6 +93,8 @@ def post_sequential_meme():
 
     if not available_memes:
         print("No more memes left to post.")
+        if job:
+            schedule.cancel_job(job)  # Cancel the scheduled job
         return False  # Indicate that posting is complete
 
     # Post the next meme in the list
@@ -129,20 +131,18 @@ def main():
     if not post_sequential_meme():
         return  # Exit if no more memes left to post
 
-    # Schedule the remaining memes every minute
-    for i in range(1, len(all_memes)):
-        schedule.every(i).minutes.do(lambda: post_sequential_meme())
+    # Schedule posting every 10 minutes and pass the job reference
+    job = schedule.every(10).minutes.do(lambda: post_sequential_meme(job=schedule.get_jobs()[0]))
 
     # Run the scheduler
     while True:
         # Run scheduled tasks
         schedule.run_pending()
-        # Check if there are no more memes left to post
+        # If there are no more jobs left, stop the script
         if not schedule.get_jobs():
             print("No more memes left to post. Stopping.")
-            break  # Exit the loop when no more memes are left
+            break
         time.sleep(1)
 
 if __name__ == "__main__":
     main()
-

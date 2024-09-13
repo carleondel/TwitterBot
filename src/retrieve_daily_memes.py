@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 import requests
+import glob
 
 # Load environment variables from .env
 load_dotenv()
@@ -31,10 +32,18 @@ reddit = praw.Reddit(
     password=REDDIT_PASSWORD
 )
 
-# Folder to save memes (changed to 'math_memes')
+# Folder to save memes (math_memes')
 math_memes_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'math_memes'))
 if not os.path.exists(math_memes_folder):
     os.makedirs(math_memes_folder)
+
+# Remove all .jpg files from the folder before downloading new ones
+for file_path in glob.glob(os.path.join(math_memes_folder, '*.jpg')):
+    try:
+        os.remove(file_path)
+        print(f"Deleted old meme: {os.path.basename(file_path)}")
+    except Exception as e:
+        print(f"Error deleting file {file_path}: {e}")
 
 # Get posts from the previous day
 yesterday = datetime.now(timezone.utc) - timedelta(days=1)
@@ -47,10 +56,18 @@ captions_file = os.path.join(math_memes_folder, 'captions.txt')
 # Open the captions file in write mode
 with open(captions_file, 'w') as captions:
     # Fetch top posts from the day before
-    subreddit = reddit.subreddit('mathmemes')
+    ### EDIT SUBREDDIT HERE    -------------------------------------------------------------------
+    subreddit = reddit.subreddit('surrealmemes')
     posts_to_save = []
-    for submission in subreddit.top(time_filter='day', limit=100):  # Fix deprecation warning
+    for submission in subreddit.top(time_filter='day', limit=100): 
         post_date = datetime.fromtimestamp(submission.created_utc, tz=timezone.utc)
+        #print(f"Considering post {submission.id} with score {submission.score} posted on {post_date}")
+        
+        # Print URL to help debugging if it's an unsupported format
+        if not submission.url.endswith(('jpg', 'jpeg', 'png')):
+            print(f"Skipping post {submission.id} due to unsupported file type: {submission.url}")
+            continue
+
         if start_of_yesterday <= post_date < end_of_yesterday:
             if submission.score > 150 or len(posts_to_save) < 1:  # At least one post if <150 score
                 # If the post has an image

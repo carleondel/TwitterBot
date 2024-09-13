@@ -1,4 +1,5 @@
 # Reddit scraper without API credentials
+# https://www.jcchouinard.com/reddit-api-without-api-credentials/
 
 import json 
 import pandas as pd
