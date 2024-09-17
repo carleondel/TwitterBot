@@ -30,3 +30,7 @@ math_memes/
 
 # txt para scheduled_img.py
 src/last_published.txt
+
+src/daily_meme_bot.log
+src/praw_reddit_trials
+src/reddit_scraper

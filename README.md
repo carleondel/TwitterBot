@@ -30,9 +30,12 @@ The project consists of several scripts:
 
 1. **`random_number_tweet.py`**: Tweets a random number.
 2. **`scheduled_random_meme_tweet.py`**: Posts the memes randomly from the `memes` folder without tweeting the same meme consecutively.
-3. **`retrieve_daily_mathmemes.py`**: Retrieves the top daily memes from Reddit’s `mathmemes` subreddit, filtering for those with a score of at least 150, and saves them to the `math_memes` folder.
+3. **`retrieve_daily_mathmemes.py`**: Retrieves the top daily memes from Reddit’s `surrealmemes` subreddit, filtering for those with a score of at least 150, and saves them to the `surrealmemes` folder.
 4. **`post_mathmemes_to_twitter.py`**: Posts the saved memes from the previous day sequentially on Twitter, one per hour, using captions from `captions.txt`. During trials, it posts the memes instantly, followed by each subsequent meme every minute.
- 
+
+5. **`daily_meme_bot.py`**: **Orchestrator Script** that calls both `retrieve_daily_memes.py` and `post_memes_to_twitter.py` sequentially. The flow is as follows:
+   - First, it calls `retrieve_daily_memes.py` to fetch new memes from Reddit.
+   - Then, after a short delay, it calls `post_memes_to_twitter.py` to post the memes throughout the day on Twitter.
 
 ## Requirements
 
