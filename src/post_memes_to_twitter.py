@@ -131,7 +131,7 @@ def main():
     if not post_sequential_meme():
         return  # Exit if no more memes left to post
 
-    # Schedule posting every 10 minutes and pass the job reference
+    # Schedule posting every 10 minutes and pass the job reference  -------------------------------------- POSTING FREQUENCY
     job = schedule.every(10).minutes.do(lambda: post_sequential_meme(job=schedule.get_jobs()[0]))
 
     # Run the scheduler

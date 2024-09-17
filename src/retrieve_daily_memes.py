@@ -50,6 +50,10 @@ yesterday = datetime.now(timezone.utc) - timedelta(days=1)
 start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day, tzinfo=timezone.utc)
 end_of_yesterday = start_of_yesterday + timedelta(days=1)
 
+# Adjusted time window: consider posts within 30 hours (for slight buffer)
+start_buffer = start_of_yesterday - timedelta(hours=6)
+end_buffer = end_of_yesterday + timedelta(hours=6)
+
 # File to save captions for Twitter posting
 captions_file = os.path.join(math_memes_folder, 'captions.txt')
 
@@ -68,7 +72,7 @@ with open(captions_file, 'w') as captions:
             print(f"Skipping post {submission.id} due to unsupported file type: {submission.url}")
             continue
 
-        if start_of_yesterday <= post_date < end_of_yesterday:
+        if start_buffer <= post_date < end_buffer:
             if submission.score > 150 or len(posts_to_save) < 1:  # At least one post if <150 score
                 # If the post has an image
                 if submission.url.endswith(('jpg', 'jpeg', 'png')):
